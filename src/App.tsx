@@ -12,10 +12,11 @@ function App() {
         <li><a href="/Setting">Setting</a></li>
         <li><a href="/Login">Login</a></li>
         <li><a href="/Signup">Signup</a></li>
+        <li><a href="/Product">Product</a></li>
       </ul>
     </nav>
 
-    <RouterProvider router={router} />
+    <RouterProvider router={router}/>
     </>
   );
 }

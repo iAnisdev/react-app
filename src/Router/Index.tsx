@@ -5,16 +5,32 @@ import Login from './../Pages/Login'
 import Setting from './../Pages/Setting'
 import Signup from './../Pages/Signup'
 import ErrorPage from "../Pages/Error";
+import Product from "../Pages/Product";
+import Contact from "../Pages/Subpages/Contact";
+import About from "../Pages/Subpages/About";
 
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <Home />
+        element: <Home />,
+        errorElement: <ErrorPage />
     },
     {
         path: '/profile',
-        element: <Profile />
+        element: <Profile />,
+        children: [
+            {
+                path: 'contact',
+                element: <Contact />
+
+            },
+            {
+                path: 'about',
+                element: <About />
+
+            }
+        ]
     },
     {
         path: '/login',
@@ -29,10 +45,18 @@ const router = createBrowserRouter([
         element: <Setting />
     },
     {
-        path: '*',
-        errorElement:<ErrorPage />
+        path: '/product/:id',
+        element: <Product />,
+        loader: async (ctx) => {
+            console.log("loader ==> ", ctx)
+        },
+        action: async ({ request, params }) => {
+
+        }
     }
-])
+], {
+    basename: '/'
+})
 
 
 export default router
