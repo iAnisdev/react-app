@@ -1,5 +1,5 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Link, NavLink, Outlet } from 'react-router-dom'
 
 function Profile() {
   return (
@@ -8,12 +8,14 @@ function Profile() {
       <br />
       <nav>
         <ul>
-          <li><a href="/profile/Contact">Contact</a></li>
-          <li><a href="/profile/About">About</a></li>
+          <li><NavLink style={({isActive}) => {
+            return isActive ? {color: 'red'} : {}
+          }} to="/profile/Contact" >Contact</NavLink></li>
+          <li><Link to="/profile/About">About</Link></li>
         </ul>
       </nav>
       <br />
-      <Outlet />
+      <Outlet context={{name: 'test'}} />
     </div>
   )
 }

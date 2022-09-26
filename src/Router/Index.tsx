@@ -8,18 +8,29 @@ import ErrorPage from "../Pages/Error";
 import Product from "../Pages/Product";
 import Contact from "../Pages/Subpages/Contact";
 import About from "../Pages/Subpages/About";
+import Basic from "../Pages/Subpages/Basic";
+import Main from "../Pages/Main";
 
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <Home />,
-        errorElement: <ErrorPage />
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: '/main',
+        element: <Main />
     },
     {
         path: '/profile',
         element: <Profile />,
         children: [
+            {
+                path: '',
+                element: <Basic />
+
+            },
             {
                 path: 'contact',
                 element: <Contact />
