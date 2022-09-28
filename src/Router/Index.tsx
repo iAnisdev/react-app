@@ -1,10 +1,13 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import Home from './../Pages/Home'
+import Auth from "../Pages/Auth/Auth";
 import Signup from '../Pages/Auth/Signup'
 import Login from '../Pages/Auth/Login'
 import Forgot from '../Pages/Auth/Forgot'
 import ErrorPage from "../Pages/Error";
-import Auth from "../Pages/Auth/Auth";
+import Home from '../Pages/Home'
+import Main from "../Pages/Dashboard/Main";
+import Profile from "../Pages/Dashboard/Profile";
+import Setting from "../Pages/Dashboard/Setting";
 
 
 const router = createBrowserRouter([
@@ -12,6 +15,19 @@ const router = createBrowserRouter([
         path: '/',
         element: <Home />,
         errorElement: <ErrorPage />,
+        children:[{
+            path: '',
+            element: <Main />
+
+        },{
+            path: 'profile',
+            element: <Profile />
+
+        },{
+            path: 'setting',
+            element: <Setting />
+
+        }]
     },
     {
         path: '/auth',

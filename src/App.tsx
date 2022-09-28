@@ -1,13 +1,16 @@
 import { Outlet, RouterProvider } from 'react-router-dom';
-import './App.css';
 import router from './Router/Index';
+import CurrentPageContextProvider from './Context/CurrentPage';
+import { Fragment } from 'react';
 
 function App() {
   return (
-    <>
-      <RouterProvider router={router} />
-      <Outlet />
-    </>
+    <Fragment>
+      <CurrentPageContextProvider>
+        <RouterProvider router={router} />
+        <Outlet />
+      </CurrentPageContextProvider>
+    </Fragment>
   );
 }
 
