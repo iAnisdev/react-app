@@ -9,7 +9,6 @@ import Main from "../Pages/Dashboard/Main";
 import Profile from "../Pages/Dashboard/Profile";
 import Setting from "../Pages/Dashboard/Setting";
 
-
 const router = createBrowserRouter([
     {
         path: '/',

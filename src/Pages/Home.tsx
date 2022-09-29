@@ -1,11 +1,19 @@
 import { useContext } from 'react'
-import { Outlet } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { Outlet, useNavigate } from "react-router-dom";
 import { Appbar } from "../Components/Appbar";
 import { CurrentPageContext } from '../Context/CurrentPage'
-
+import { State } from '../Store/Store';
 
 export default function Home() {
   const { CurrentPage } = useContext(CurrentPageContext)
+  // const Auth = useSelector((state: State) => state.Auth)
+  // const navigate = useNavigate()
+
+  // if(!Auth.isLoggedIn){
+  //   navigate('/auth')
+  // }
+
   return (
     <>
       <div className="min-h-full">

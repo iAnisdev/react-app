@@ -16,7 +16,7 @@ const initialAuth: Auth = {
 
 
 
- export const AuthReducer = (state: Auth= initialAuth, action: Action) => {
+export const AuthReducer = (state: Auth = initialAuth, action: Action) => {
     switch (action.type) {
         case (AuthAction.LOGIN):
             state.isLoggedIn = true;

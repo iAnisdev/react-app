@@ -1,6 +1,6 @@
 import { createContext, FC, ReactElement, Fragment } from 'react'
 import firebaseConfig from './firebaseConfig'
-import app from 'firebase/app'
+import app , { getApps} from 'firebase/app'
 import 'firebase/database'
 import { useDispatch } from 'react-redux'
 
@@ -17,11 +17,10 @@ const FirebaseProvider: FC<PropsType> = (props: PropsType): ReactElement => {
         app: null,
         database: null
     }
-    if (!app.getApps().length) {
-        app.initializeApp(firebaseConfig)
-        firebase.app = app
-        firebase.database = firebase.database().ref()
-
+    if (getApps().length) {
+        // app.initializeApp(firebaseConfig)
+        // firebase.app = app
+        // firebase.database = firebase.database().ref()
     }
     return (
         <>
