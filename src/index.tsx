@@ -6,13 +6,18 @@ import reportWebVitals from './reportWebVitals';
 
 import { Provider } from 'react-redux';
 import { store } from './Store/Store';
+
+import FirebaseProvider from './firebase/firebase';
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <FirebaseProvider>
+        <App />
+      </FirebaseProvider>
     </Provider>
   </React.StrictMode>
 );
