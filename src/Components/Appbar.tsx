@@ -1,9 +1,11 @@
 import React, { Fragment, useEffect, useContext } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon, UserCircleIcon } from '@heroicons/react/24/outline'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { CurrentPageContext } from '../Context/CurrentPage'
 
+
+import { FirebaseContext } from '../firebase/FirebaseContext'
 const user = {
     name: 'Tom Cook',
     email: 'tom@example.com'
@@ -14,8 +16,7 @@ const navigation = [
 ]
 const userNavigation = [
     { name: 'Your Profile', to: '/profile' },
-    { name: 'Settings', to: '/setting' },
-    { name: 'Sign out', to: '/auth/logout' },
+    { name: 'Settings', to: '/setting' }
 ]
 
 function classNames(...classes: any) {
@@ -24,6 +25,8 @@ function classNames(...classes: any) {
 
 export const Appbar: React.FC = () => {
     let { pathname } = useLocation();
+    const Navigate = useNavigate()
+    const { logout } = useContext(FirebaseContext)
 
     const { SetCurrentPage } = useContext(CurrentPageContext)
 
@@ -39,6 +42,10 @@ export const Appbar: React.FC = () => {
 
     function Capitalize(str: String) {
         return str.charAt(0).toUpperCase() + str.slice(1)
+    }
+
+    function logOut() {
+        logout()
     }
     return (
         <>
@@ -118,6 +125,9 @@ export const Appbar: React.FC = () => {
                                                             )}
                                                         </Menu.Item>
                                                     ))}
+                                                    <div className='block px-4 py-2 text-sm text-gray-700 cursor-pointer ocus:outline-none hover:bg-gray-100' onClick={logOut}>
+                                                        Sign out
+                                                    </div>
                                                 </Menu.Items>
                                             </Transition>
                                         </Menu>
@@ -189,6 +199,9 @@ export const Appbar: React.FC = () => {
                                             </Disclosure.Button>
                                         </Link>
                                     ))}
+                                    <div className='block px-3 py-2 rounded-md text-base font-medium cursor-pointer' onClick={logOut}>
+                                        Sign out
+                                    </div>
                                 </div>
                             </div>
                         </Disclosure.Panel>

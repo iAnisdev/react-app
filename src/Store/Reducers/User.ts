@@ -4,18 +4,16 @@ enum UserAction {
 }
 
 interface User {
-    name: string,
+    displayName: string,
     email: string,
-    password: string,
-    id?: string
+    uid?: string
 }
 
 
 const initialUser: User = {
-    name: '',
+    displayName: '',
     email: '',
-    password: '',
-    id: ''
+    uid: ''
 }
 
 interface SetAction {
@@ -29,13 +27,14 @@ interface ResetAction {
 export const UserReducer = (state: User = initialUser, action: SetAction | ResetAction) => {
     switch (action.type) {
         case UserAction.SET:
-            state = action.payload
-            break;
+            let setState = Object.assign({}, state)
+            setState = action.payload
+            return setState
         case UserAction.RESET:
-            state = initialUser
-            break;
+            let resetState = Object.assign({}, state)
+            resetState = initialUser
+            return resetState
         default:
-            state = initialUser
+            return state
     }
-    return state
 }

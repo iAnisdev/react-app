@@ -19,13 +19,15 @@ const initialAuth: Auth = {
 export const AuthReducer = (state: Auth = initialAuth, action: Action) => {
     switch (action.type) {
         case (AuthAction.LOGIN):
-            state.isLoggedIn = true;
-            break;
+            let newState = Object.assign({}, state)
+            newState.isLoggedIn = true
+            return newState;
         case (AuthAction.LOGOUT):
-            state.isLoggedIn = false;
-            break;
+            let loggedOutState = Object.assign({}, state)
+            loggedOutState.isLoggedIn = false
+            console.log(loggedOutState)
+            return loggedOutState;
         default:
-            state.isLoggedIn = false;
+            return state;
     }
-    return state
 }
