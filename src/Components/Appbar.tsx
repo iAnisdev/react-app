@@ -29,7 +29,7 @@ export const Appbar: React.FC = () => {
 
     useEffect(() => {
         let current = pathname.slice(1)
-        if(current === '') current = 'dashboard'
+        if (current === '') current = 'dashboard'
         current = Capitalize(current)
         SetCurrentPage(current)
         return () => {
@@ -37,7 +37,7 @@ export const Appbar: React.FC = () => {
         }
     }, [pathname])
 
-    function Capitalize(str: String){
+    function Capitalize(str: String) {
         return str.charAt(0).toUpperCase() + str.slice(1)
     }
     return (
@@ -140,18 +140,22 @@ export const Appbar: React.FC = () => {
                         <Disclosure.Panel className="md:hidden">
                             <div className="space-y-1 px-2 pt-2 pb-3 sm:px-3">
                                 {navigation.map((item) => (
-                                    <Disclosure.Button
+                                    <Link
                                         key={item.name}
-                                        as="a"
-                                        href={item.to}
-                                        className={classNames(
-                                            item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                                            'block px-3 py-2 rounded-md text-base font-medium'
-                                        )}
-                                        aria-current={item.current ? 'page' : undefined}
-                                    >
-                                        {item.name}
-                                    </Disclosure.Button>
+                                        to={item.to}
+                                        className="block px-3 py-2 rounded-md text-base font-medium">
+                                        <Disclosure.Button
+                                            className={classNames(
+                                                item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white ',
+                                                'text-left block px-3 py-2 rounded-md text-base font-medium w-full'
+                                            )}
+                                            aria-current={item.current ? 'page' : undefined}
+                                        >
+                                            {item.name}
+
+                                        </Disclosure.Button>
+                                    </Link>
+
                                 ))}
                             </div>
                             <div className="border-t border-gray-700 pt-4 pb-3">
@@ -173,14 +177,17 @@ export const Appbar: React.FC = () => {
                                 </div>
                                 <div className="mt-3 space-y-1 px-2">
                                     {userNavigation.map((item) => (
-                                        <Disclosure.Button
+                                        <Link
                                             key={item.name}
-                                            as="a"
-                                            href={item.to}
-                                            className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                                        >
-                                            {item.name}
-                                        </Disclosure.Button>
+                                            to={item.to}
+                                            className="block px-3 py-2 rounded-md text-base font-medium">
+                                            <Disclosure.Button
+
+                                                className="text-left block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white w-full"
+                                            >
+                                                {item.name}
+                                            </Disclosure.Button>
+                                        </Link>
                                     ))}
                                 </div>
                             </div>
