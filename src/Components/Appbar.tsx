@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useContext } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon, UserCircleIcon } from '@heroicons/react/24/outline'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, redirect } from 'react-router-dom'
 import { CurrentPageContext } from '../Context/CurrentPage'
 
 
@@ -25,7 +25,6 @@ function classNames(...classes: any) {
 
 export const Appbar: React.FC = () => {
     let { pathname } = useLocation();
-    const Navigate = useNavigate()
     const { logout } = useContext(FirebaseContext)
 
     const { SetCurrentPage } = useContext(CurrentPageContext)
@@ -44,8 +43,8 @@ export const Appbar: React.FC = () => {
         return str.charAt(0).toUpperCase() + str.slice(1)
     }
 
-    function logOut() {
-        logout()
+    async function logOut() {
+        await logout()
     }
     return (
         <>

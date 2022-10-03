@@ -1,3 +1,5 @@
+import { produce } from "immer"
+
 enum UserAction {
     SET = 'SET_USER',
     RESET = 'RESET_USER'
@@ -27,13 +29,13 @@ interface ResetAction {
 export const UserReducer = (state: User = initialUser, action: SetAction | ResetAction) => {
     switch (action.type) {
         case UserAction.SET:
-            let setState = Object.assign({}, state)
-            setState = action.payload
-            return setState
+            return produce(state , (draft) => {
+                draft = action.payload
+            })
         case UserAction.RESET:
-            let resetState = Object.assign({}, state)
-            resetState = initialUser
-            return resetState
+            return produce(state , (draft) => {
+                draft = initialUser
+            })
         default:
             return state
     }

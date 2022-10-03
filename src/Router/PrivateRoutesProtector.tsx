@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useMemo, useReducer } from 'react'
-import { Navigate, Outlet } from 'react-router-dom'
+import { Navigate, Outlet, redirect } from 'react-router-dom'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { useSelector } from 'react-redux'
 import { State } from '../Store/Store'
@@ -10,15 +10,13 @@ interface PropsType {
 }
 
 const PrivateRoutesProtector: React.FC<PropsType> = ({ requiredAuth }: PropsType): ReactElement => {
-    const [, forceUpdate] = useReducer(x => x + 1, 0);
     let Auth = useSelector((state: State) => state.Auth)
     let dispatch = useDispatch()
     let fireBaseAuth = getAuth()
 
     useEffect(() => {
         onAuthStateChanged(fireBaseAuth, (user) => {
-            console.log(user)
-            if (user) {
+            if (user !== null) {
                 dispatch({ type: 'login' })
                 dispatch({
                     type: 'SET_USER', payload: {
@@ -30,30 +28,36 @@ const PrivateRoutesProtector: React.FC<PropsType> = ({ requiredAuth }: PropsType
             } else {
                 dispatch({ type: 'logout' })
                 dispatch({ type: 'RESET_USER' })
-                console.log(Auth)
+                render()
             }
         })
-        forceUpdate()
-    }, [fireBaseAuth])
+    }, [Auth.isLoggedIn])
 
-    if (requiredAuth) {
-        if (!Auth.isLoggedIn) {
-            return <Navigate to='/auth/login' />
-        } else {
-            return (
-                <Outlet />
-            )
-        }
-    } else {
-        if (Auth.isLoggedIn) {
-            return <Navigate to='/' />
-        } else {
+    useEffect(() => {
+    } , [Auth.isLoggedIn])
 
-            return (
-                <Outlet />
-            )
+    function render(){
+        if (requiredAuth) {
+            if (!Auth.isLoggedIn) {
+                return <Navigate to='/auth/login' />
+            } else {
+                return (
+                    <Outlet />
+                )
+            }
+        } else {
+            if (Auth.isLoggedIn) {
+                return <Navigate to='/' />
+            } else {
+    
+                return (
+                    <Outlet />
+                )
+            }
         }
     }
+
+    return render()
 }
 
 export default PrivateRoutesProtector
